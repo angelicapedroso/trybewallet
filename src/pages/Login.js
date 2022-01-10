@@ -12,7 +12,7 @@ class Login extends React.Component {
       redirect: false,
     };
 
-    this.validationInputs = this.validateInputs.bind(this);
+    this.validateInputs = this.validateInputs.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -22,7 +22,7 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     }, () => {
-      this.validationInputs();
+      this.validateInputs();
     });
   }
 
