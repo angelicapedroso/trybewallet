@@ -5,11 +5,11 @@ export default class CurrencyInput extends Component {
     return (
       <label htmlFor="currency">
         Moeda:
-        <input
+        <select
           data-testid="currency-input"
-          type="text"
-          name="currency"
-        />
+        >
+          <option selected="selected" disabled="disabled">Selecionar</option>
+        </select>
       </label>
     );
   }
