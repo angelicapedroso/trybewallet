@@ -1,5 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -27,10 +30,13 @@ class Login extends React.Component {
   }
 
   handleClick(event) {
+    const { loginInfo } = this.props;
+    const { email } = this.state;
     event.preventDefault();
     this.setState({
       redirect: true,
     });
+    loginInfo(email);
   }
 
   validateInputs() {
@@ -80,4 +86,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  loginInfo: (email) => dispatch(saveEmail(email)),
+});
+
+Login.propTypes = {
+  loginInfo: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
