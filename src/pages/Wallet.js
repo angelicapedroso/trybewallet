@@ -10,8 +10,30 @@ import TagInput from '../components/TagInput';
 import BtnAdd from '../components/BtnAdd';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      value: '',
+      currency: '',
+      description: '',
+      method: '',
+      tag: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
     const { userEmail } = this.props;
+    const { value, currency, description, method, tag } = this.state;
     return (
       <main>
         <header>
@@ -34,11 +56,14 @@ class Wallet extends React.Component {
           </ul>
         </header>
         <form>
-          <ValueInput />
-          <CurrencyInput />
-          <MethodInput />
-          <TagInput />
-          <DescriptionInput />
+          <ValueInput value={ value } handleChange={ this.handleChange } />
+          <CurrencyInput currency={ currency } handleChange={ this.handleChange } />
+          <MethodInput method={ method } handleChange={ this.handleChange } />
+          <TagInput tag={ tag } handleChange={ this.handleChange } />
+          <DescriptionInput
+            description={ description }
+            handleChange={ this.handleChange }
+          />
           <BtnAdd />
         </form>
       </main>
