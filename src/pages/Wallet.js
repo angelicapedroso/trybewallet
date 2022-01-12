@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { saveExpense } from '../actions';
 
 import Header from '../components/Header';
 import ValueInput from '../components/ValueInput';
@@ -8,7 +11,7 @@ import MethodInput from '../components/MethodInput';
 import TagInput from '../components/TagInput';
 import BtnAdd from '../components/BtnAdd';
 
-export default class Wallet extends React.Component {
+class Wallet extends React.Component {
   constructor() {
     super();
 
@@ -21,6 +24,7 @@ export default class Wallet extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -28,6 +32,15 @@ export default class Wallet extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+    const { expenseInfo } = this.props;
+    const { value, currency, description, method, tag } = this.state;
+    const expenseList = { value, currency, description, method, tag };
+    expenseInfo(expenseList);
+    this.setState({ value: '', currency: '', description: '', method: '', tag: '' });
   }
 
   render() {
@@ -44,9 +57,19 @@ export default class Wallet extends React.Component {
             description={ description }
             handleChange={ this.handleChange }
           />
-          <BtnAdd />
+          <BtnAdd handleClick={ this.handleClick } />
         </form>
       </main>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  expenseInfo: (state) => dispatch(saveExpense(state)),
+});
+
+Wallet.propTypes = {
+  expenseInfo: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Wallet);
