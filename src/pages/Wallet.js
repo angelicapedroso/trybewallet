@@ -16,6 +16,7 @@ class Wallet extends React.Component {
     super();
 
     this.state = {
+      id: 0,
       value: '',
       currency: '',
       description: '',
@@ -38,8 +39,16 @@ class Wallet extends React.Component {
     event.preventDefault();
     const { expenseInfo } = this.props;
     expenseInfo(this.state);
-    this.setState({ value: '', currency: '', description: '', method: '', tag: '' });
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      value: '',
+      currency: '',
+      description: '',
+      method: '',
+      tag: '',
+    }));
   }
+  // reference: https://www.ti-enxame.com/pt/reactjs/incrementando-o-valor-do-estado-por-um-usando-react/829633222/
 
   render() {
     const { value, currency, description, method, tag } = this.state;
