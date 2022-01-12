@@ -37,9 +37,7 @@ class Wallet extends React.Component {
   handleClick(event) {
     event.preventDefault();
     const { expenseInfo } = this.props;
-    const { value, currency, description, method, tag } = this.state;
-    const expenseList = { value, currency, description, method, tag };
-    expenseInfo(expenseList);
+    expenseInfo(this.state);
     this.setState({ value: '', currency: '', description: '', method: '', tag: '' });
   }
 

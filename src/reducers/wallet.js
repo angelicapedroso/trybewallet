@@ -19,12 +19,7 @@ function wallet(state = INITIAL_STATE, action) {
   case SAVE_EXPENSE:
     return {
       ...state,
-      expenses: {
-        value: action.payload.value,
-        description: action.payload.description,
-        message: action.payload.method,
-        tag: action.payload.tag,
-      },
+      expenses: { ...action.payload },
     };
   default:
     return state;

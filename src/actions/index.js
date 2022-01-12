@@ -6,7 +6,7 @@ export const saveEmail = (email) => ({
   payload: email,
 });
 
-export const saveExpense = (value, description, method, tag) => ({
+export const saveExpense = (expense) => ({
   type: SAVE_EXPENSE,
-  payload: { value, description, method, tag },
+  payload: expense,
 });
