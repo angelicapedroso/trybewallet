@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveExpense } from '../actions';
+import { saveExpense, fetchCurrenciesAPI } from '../actions';
 
 import Header from '../components/Header';
 import ValueInput from '../components/ValueInput';
@@ -22,10 +22,16 @@ class Wallet extends React.Component {
       description: '',
       method: '',
       tag: '',
+      exchangeRates: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { currencyInfo } = this.props;
+    currencyInfo();
   }
 
   handleChange({ target }) {
@@ -36,8 +42,10 @@ class Wallet extends React.Component {
   }
 
   handleClick(event) {
+    const { exchangeRates } = this.state;
     event.preventDefault();
-    const { expenseInfo } = this.props;
+    const { expenseInfo, currencyInfo } = this.props;
+    currencyInfo(exchangeRates);
     expenseInfo(this.state);
     this.setState((prevState) => ({
       id: prevState.id + 1,
@@ -73,10 +81,12 @@ class Wallet extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   expenseInfo: (state) => dispatch(saveExpense(state)),
+  currencyInfo: (state) => dispatch(fetchCurrenciesAPI(state)),
 });
 
 Wallet.propTypes = {
   expenseInfo: PropTypes.func.isRequired,
+  currencyInfo: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Wallet);

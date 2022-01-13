@@ -1,4 +1,4 @@
-import { SAVE_EXPENSE } from '../actions';
+import { SAVE_EXPENSE, SAVE_CURRENCY } from '../actions';
 
 const INITIAL_STATE = {
   wallet: {
@@ -10,6 +10,18 @@ const INITIAL_STATE = {
       currency: '',
       method: '',
       tag: '',
+      exchangeRates: {
+        USD: {
+          code: 'USD',
+          name: 'Dólar Comercial',
+          ask: '5.6208',
+        },
+        CAD: {
+          code: 'CAD',
+          name: 'Dólar Canadense',
+          ask: '4.2313',
+        },
+      },
     }],
   },
 };
@@ -20,6 +32,10 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: { ...action.payload },
+    };
+  case SAVE_CURRENCY:
+    return {
+      expenses: { ...state.expenses, exchangeRates: { ...action.payload } },
     };
   default:
     return state;
