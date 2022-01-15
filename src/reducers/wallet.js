@@ -40,7 +40,7 @@ function wallet(state = INITIAL_STATE, action) {
   case CURRENCY_KEY:
     return {
       ...state,
-      currencies: [...action.payload],
+      currencies: action.payload,
     };
   default:
     return state;
