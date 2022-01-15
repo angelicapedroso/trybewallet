@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default class CurrencyInput extends Component {
+class CurrencyInput extends Component {
   render() {
-    const { currency, handleChange } = this.props;
+    const { handleChange, currenciesList } = this.props;
     return (
       <label htmlFor="currency">
         Moeda:
         <select
+          id="currency"
           name="currency"
           data-testid="currency-input"
-          value={ currency }
           onChange={ handleChange }
         >
-          <option>Selecionar</option>
+          { currenciesList !== undefined && currenciesList.map((currency) => (
+            <option key={ currency }>{ currency }</option>
+          )) }
         </select>
       </label>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  currenciesList: state.wallet.currencies,
+});
+
 CurrencyInput.propTypes = {
-  currency: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  currenciesList: PropTypes.func.isRequired,
 };
+
+export default connect(mapStateToProps, null)(CurrencyInput);

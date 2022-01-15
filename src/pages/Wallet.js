@@ -18,7 +18,6 @@ class Wallet extends React.Component {
     this.state = {
       id: 0,
       value: '',
-      currency: '',
       description: '',
       method: '',
       tag: '',
@@ -50,7 +49,6 @@ class Wallet extends React.Component {
     this.setState((prevState) => ({
       id: prevState.id + 1,
       value: '',
-      currency: '',
       description: '',
       method: '',
       tag: '',
@@ -59,13 +57,13 @@ class Wallet extends React.Component {
   // reference: https://www.ti-enxame.com/pt/reactjs/incrementando-o-valor-do-estado-por-um-usando-react/829633222/
 
   render() {
-    const { value, currency, description, method, tag } = this.state;
+    const { value, description, method, tag } = this.state;
     return (
       <main>
         <Header />
         <form>
           <ValueInput value={ value } handleChange={ this.handleChange } />
-          <CurrencyInput currency={ currency } handleChange={ this.handleChange } />
+          <CurrencyInput handleChange={ this.handleChange } />
           <MethodInput method={ method } handleChange={ this.handleChange } />
           <TagInput tag={ tag } handleChange={ this.handleChange } />
           <DescriptionInput
