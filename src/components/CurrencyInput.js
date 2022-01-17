@@ -33,3 +33,5 @@ CurrencyInput.propTypes = {
 };
 
 export default connect(mapStateToProps, null)(CurrencyInput);
+
+// help from: João Victor Veidz, Rivaldo Maciel e Joel Almeida

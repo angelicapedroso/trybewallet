@@ -10,6 +10,7 @@ import CurrencyInput from '../components/CurrencyInput';
 import MethodInput from '../components/MethodInput';
 import TagInput from '../components/TagInput';
 import BtnAdd from '../components/BtnAdd';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -72,6 +73,7 @@ class Wallet extends React.Component {
           />
           <BtnAdd handleClick={ this.handleClick } />
         </form>
+        <Table />
       </main>
     );
   }
