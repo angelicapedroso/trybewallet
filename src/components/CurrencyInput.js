@@ -4,18 +4,19 @@ import PropTypes from 'prop-types';
 
 class CurrencyInput extends Component {
   render() {
-    const { handleChange, currenciesList } = this.props;
+    const { handleChange, currenciesList, currency } = this.props;
     return (
-      <label htmlFor="currency">
+      <label htmlFor="currency-id">
         Moeda:
         <select
-          id="currency"
+          id="currency-id"
           name="currency"
           data-testid="currency-input"
+          value={ currency }
           onChange={ handleChange }
         >
-          { currenciesList !== undefined && currenciesList.map((currency) => (
-            <option key={ currency }>{ currency }</option>
+          { currenciesList !== undefined && currenciesList.map((coin) => (
+            <option value={ coin } key={ coin }>{ coin }</option>
           )) }
         </select>
       </label>
@@ -30,6 +31,7 @@ const mapStateToProps = (state) => ({
 CurrencyInput.propTypes = {
   handleChange: PropTypes.func.isRequired,
   currenciesList: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, null)(CurrencyInput);

@@ -5,12 +5,12 @@ export default class ValueInput extends Component {
   render() {
     const { value, handleChange } = this.props;
     return (
-      <label htmlFor="value">
+      <label htmlFor="value-id">
         Valor:
         <input
-          id="value"
+          id="value-id"
           data-testid="value-input"
-          type="number"
+          type="text"
           name="value"
           value={ value }
           onChange={ handleChange }

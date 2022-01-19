@@ -5,19 +5,18 @@ export default class MethodInput extends Component {
   render() {
     const { method, handleChange } = this.props;
     return (
-      <label htmlFor="method">
+      <label htmlFor="method-id">
         Método de pagamento:
         <select
-          id="method"
+          id="method-id"
           name="method"
           value={ method }
           onChange={ handleChange }
           data-testid="method-input"
         >
-          <option>Selecionar</option>
-          <option value="money">Dinheiro</option>
-          <option value="credit-card">Cartão de crédito</option>
-          <option value="debit-card">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );

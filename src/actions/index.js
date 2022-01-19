@@ -25,6 +25,11 @@ export const currencyKey = (key) => ({
   payload: key,
 });
 
+export const setExpenses = (expense) => async (dispatch) => {
+  const data = await getCurrenciesAPI();
+  dispatch(saveExpense({ ...expense, exchangeRates: data }));
+};
+
 export const fetchCurrenciesAPI = () => async (dispatch) => {
   const response = await getCurrenciesAPI();
   const data = await response;
