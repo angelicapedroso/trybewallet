@@ -17,12 +17,15 @@ class Wallet extends React.Component {
     super();
 
     this.state = {
-      id: 0,
-      value: '',
-      description: '',
-      method: '',
-      tag: '',
-      exchangeRates: '',
+      expenses: {
+        id: 0,
+        value: '',
+        currency: 'USD',
+        description: '',
+        method: '',
+        tag: '',
+        exchangeRates: [],
+      },
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,31 +33,38 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    const { currencyInfo } = this.props;
-    currencyInfo();
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
+    this.setState((prevState) => ({
+      expenses: {
+        ...prevState.expenses,
+        [name]: value,
+      },
+    }));
   }
 
   handleClick(event) {
-    const { exchangeRates } = this.state;
     event.preventDefault();
-    const { expenseInfo, currencyInfo } = this.props;
-    currencyInfo(exchangeRates);
-    expenseInfo(this.state);
+    const { expenseInfo, fetchCurrencies, allCurrencies } = this.props;
+    const { expenses } = this.state;
+    fetchCurrencies();
     this.setState((prevState) => ({
-      id: prevState.id + 1,
-      value: '',
-      description: '',
-      method: '',
-      tag: '',
+      expenses: {
+        id: prevState.id + 1,
+        value: 0,
+        currency: 'USD',
+        description: '',
+        method: '',
+        tag: '',
+      },
     }));
+    expenseInfo({ ...expenses, exchangeRates: allCurrencies[0] });
   }
+
   // reference: https://www.ti-enxame.com/pt/reactjs/incrementando-o-valor-do-estado-por-um-usando-react/829633222/
 
   render() {
@@ -79,14 +89,19 @@ class Wallet extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  allCurrencies: state.wallet.exchangeRates,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   expenseInfo: (state) => dispatch(saveExpense(state)),
-  currencyInfo: (state) => dispatch(fetchCurrenciesAPI(state)),
+  fetchCurrencies: (state) => dispatch(fetchCurrenciesAPI(state)),
 });
 
 Wallet.propTypes = {
   expenseInfo: PropTypes.func.isRequired,
-  currencyInfo: PropTypes.func.isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
+  allCurrencies: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

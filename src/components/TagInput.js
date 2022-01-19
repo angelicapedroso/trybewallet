@@ -8,6 +8,7 @@ export default class TagInput extends Component {
       <label htmlFor="tag">
         Tag:
         <select
+          id="tag"
           name="tag"
           data-testid="tag-input"
           value={ tag }

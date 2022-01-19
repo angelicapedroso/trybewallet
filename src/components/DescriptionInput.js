@@ -8,6 +8,7 @@ export default class DescriptionInput extends Component {
       <label htmlFor="description">
         Descrição:
         <input
+          id="description"
           data-testid="description-input"
           type="text"
           name="description"

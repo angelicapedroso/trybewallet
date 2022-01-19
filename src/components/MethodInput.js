@@ -8,6 +8,7 @@ export default class MethodInput extends Component {
       <label htmlFor="method">
         Método de pagamento:
         <select
+          id="method"
           name="method"
           value={ method }
           onChange={ handleChange }
